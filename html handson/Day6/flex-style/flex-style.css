@@ -1,0 +1,9 @@
+.flex-container{display:flex;flex-direction:row; justify-content:right;}
+
+.item1{background-color: violet;border: 2px solid black;flex-grow: 1;}
+.item2{background-color: brown;border: 2px solid black;flex-grow: 1;}
+.item3{background-color: aqua;border:2px solid black;flex-grow: 1;}
+.flex-container > div {padding :10px}
+@media (max-width:450px) {
+    .flex-container{flex-direction: column;}
+}

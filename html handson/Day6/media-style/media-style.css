@@ -1,0 +1,19 @@
+.heading{
+    color: blueviolet;
+}
+.sub-heading{
+    color: palevioletred;
+}
+@media print{
+    .heading{color: black;}
+    .sub-heading{color: black;}
+}
+@media (max-width:350px){
+    .heading{background-color: beige;}
+    .sub-heading{background-color: brown;}
+}
+@media screen and (max-width:500px){
+    .heading{background-color:green}
+    .sub-heading{background-color: blanchedalmond;}
+}
+
