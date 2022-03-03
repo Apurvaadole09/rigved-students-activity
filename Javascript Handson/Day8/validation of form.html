@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Validation of Form</h1>
+    <form name="testForm" action="while do while loop.html" method="post" onsubmit="return validate()">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" placeholder="name"  name="user"></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input type="text" placeholder="Last name" name="lastname"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" placeholder="Password" name="pass"></td>
+            </tr>
+            <tr>
+                <td>Confirm Password:</td>
+                <td><input type="Password" placeholder="Confirm password" Name="cnfPass"></td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td><input type="radio" name="gender" value="M" >Male</td>
+                <td><input type="radio" name="gender" value="F" >Female</td>
+            </tr>
+            <tr>
+                <td>Skills:</td>
+                <td><input type="checkbox" name="skills" value="JS">Javascript</td>
+                <td><input type="checkbox" name="skills" value="HTML">HTML</td>
+                
+                <td><input type="checkbox" name="skills" value="Python">Python</td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+                <td><input type="reset" value="Reset"></td>
+            </tr>
+
+        </table>
+    </form>
+    <script type="text/javascript">
+        function validate()
+        {
+               var user = document.testForm.user;
+               var lastname = document.testForm.lastname;
+               var pass = document.testForm.pass;
+               var cnfPass = document.testForm.cnfPass;
+               var gender = document.testForm.gender;
+               var skills = document.testForm.skills;
+              
+               if (user.value.length < 3){
+                   alert("Name must be more than 3 characters");
+                   user.focus();
+                   return false;
+                }
+               
+               if (lastname.value.length < 3){
+                   alert("lastname must be more than 3 characters");
+                   lastname.focus();
+                   return false;
+                }
+            
+            if (pass.value.length < 3) {
+                alert("Password must be more than 3 characters.");
+                pass.focus();
+                return false;
+
+            }
+            
+            if (pass.value != cnfPass.value) {
+                alert("Password must be Match with confirm Password.");
+               
+                return false;
+
+            }
+            if (gender.value.length < 1) {
+                alert("Gender Selection Required");
+                gender.focus()
+                return false;
+
+            }
+            var flag=false;for(var i=0;i < skills.length;i++){
+                if(skills[i].checked){
+                    flag=true;
+                }
+            }
+            if (flag == false){
+                alert("Atleast one skills mut be selected");
+                return false;
+            }
+                return true;
+        }
+    </script>
+    
+</body>
+</html>
