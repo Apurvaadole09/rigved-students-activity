@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <script type="text/javascript">
+         function myfun()
+         {
+             var a=parseInt(document.getElementById('number').value);
+             var b=parseInt(document.getElementById('numbers').value);
+             document.getElementById('result').innerHTML=a+b;
+         }
+         function myfun2()
+         {
+             var a=parseInt(document.getElementById('number').value);
+             var b=parseInt(document.getElementById('numbers').value);
+             document.getElementById('result').innerHTML=a-b;
+         }
+         function myfun3()
+         {
+             var a=parseInt(document.getElementById('number').value);
+             var b=parseInt(document.getElementById('numbers').value);
+             document.getElementById('result').innerHTML=a*b;
+         }
+         function myfun4()
+         {
+             var a=parseInt(document.getElementById('number').value);
+             var b=parseInt(document.getElementById('numbers').value);
+             document.getElementById('result').innerHTML=a/b;
+         }
+     </script>
+    <h1>Calculation of Two Numbers</h1>
+    <form name="cal" method="post" onsubmit="return myfun()">
+     <table>  
+    <tr><td>1st Number:</td>
+    <td><input type="number" value="" id="number" autocomplete="off"></td>  <br/>
+    </tr>
+    <tr><td>2nd Number:</td>
+    <td><input type="number" value="" id="numbers" autocomplete="off"></td> <br/>
+    </tr>
+    <tr><td>Result:</td>
+    <td><ouput type="number" value="" id="result" ></ouput></td> <br/>
+    </tr> 
+    <tr>
+    <td><td><input type="button" value="Add" onclick="return myfun()"></td>
+    <td><input type="button" value="Sub" onclick="return myfun2()"></td></td> 
+    </tr>
+    <tr>
+    <td><td><input type="button" value="Mul" onclick="return myfun3()"></td>
+    <td><input type="button" value="Div" onclick="return myfun4()"></td></td> 
+    </tr> 
+    </table>
+
+    </form>
+</body>
+</html>
