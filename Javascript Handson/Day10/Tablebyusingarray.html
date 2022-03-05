@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{ text-align:center
+        }
+        div{
+            display:inline-block;
+            border: 1px solid black
+        }
+    </style>
+    
+</head>
+<body>
+    <h2>Table By using Array</h2>
+    <div id="table">
+    <script type="text/javascript">
+        function funCall(){
+            var myArray =[{CustomerID:'CustomerID',Fullname:'Fullname',State:'State',City:'City'},
+                        {CustomerID: 111,Fullname:'Sachin Tendulkar',State:'Maharashtra', City: 'Mumbai'},
+                        {CustomerID: 112,Fullname:'Rohit Sharma',State:'karnataka', City: 'Banglore'},
+                        {CustomerID: 113,Fullname:'Virat Kolhi',State:'Panjab', City: 'Amritser'},
+                        {CustomerID: 114,Fullname:'Ajinkya Rahane',State:'Maharashtra', City: 'Pune'}
+        ]
+         var html="<table border ='1|1' >"
+          setTimeout(()=>{
+              for(var i=0;i<myArray.length;i++){
+                  html+='<tr>';
+                  
+                  html+='<td>'+myArray[i].CustomerID+'<td>';
+                  html+='<td>'+myArray[i].Fullname+'<td>';
+                  html+='<td>'+myArray[i].State+'<td>';
+                  html+='<td>'+myArray[i].City+'<td>';
+                  html+='<tr>';
+              }
+              document.getElementById("table").innerHTML=html
+          },500);
+
+          }
+          funCall()
+
+          
+        
+    </script>
+    </div>
+</body>
+</html>
