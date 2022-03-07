@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Activity</title>
+    <style type="text/css">
+        div {
+            display: inline-block; border: 2px solid black; width: 404px; height: 404px;
+        }
+        
+        canvas {border: solid 2px black; margin: 2%;}
+    </style>
+</head>
+<body>
+ 
+<canvas id="myCanvas" style="border:1px solid #000000;"></canvas>
+
+    <script type="text/javascript">
+
+var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+
+var arcWidth = 17;
+var radius = 14 * arcWidth;
+
+var omkadering = document.getElementById("myCanvas");
+var context = omkadering.getContext("2d");
+omkadering.width = (radius + (colors.length-0.5) * arcWidth) * 2;
+omkadering.height = (radius + (colors.length-1) * arcWidth);
+
+var drawArc = function( color ){
+  context.beginPath();
+  context.arc(
+    omkadering.width/2,
+    omkadering.height + arcWidth/2,
+    radius,
+    Math.PI,
+    2*Math.PI
+  );
+  context.lineWidth = arcWidth;
+  context.strokeStyle = color;
+  context.stroke();
+  context.closePath();
+  radius += arcWidth;
+};
+
+colors.reverse().forEach( drawArc );
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            box-sizing: border-box;
+
+        }
+        body{
+            text-align: center;
+        }
+        #container{
+            width: 410px;
+            height: 410px;
+            border:3px solid black;
+            background-color: black;
+            display: grid;
+            grid-template-rows: repeat(8 , 1fr);
+            margin: auto;
+        }
+        .chessrow{
+            height: 50px;
+            border:solid black;
+            display: flex;
+        }
+        .boxes{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Chessboard</h2>
+    <div id = 'container'>
+
+    </div>
+    <script type="text/javascript">
+        var container = document.getElementById('container')
+        for (var i = 1; i<9 ; i++){
+            var chessrows = document.createElement('div')
+            chessrows.classList.add('chessrow')
+            if(i%2 == 0){
+                chessrows.style.flexDirection='row-reverse'
+            }
+
+
+        for (var inner = 1; inner < 9; inner++){
+            var smallBoxes = document.createElement('div')
+            smallBoxes.classList.add('boxes')
+            if (inner%2 == 0){
+                smallBoxes.style.background = 'black'
+            }
+            else{
+                smallBoxes.style.background = 'White'
+            }
+            chessrows.appendChild(smallBoxes)
+        }
+        container.appendChild(chessrows)
+
+        }
+    </script>
+</body>
+</html>
