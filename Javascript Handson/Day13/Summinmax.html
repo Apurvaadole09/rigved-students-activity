@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body >
+    <h2>Rest and spread Operators</h2>
+    <script type="text/javascript">
+        function test(a, ...b) {
+            let x= parseInt(Math.max(a, ...b));
+            let y = parseInt(Math.min(a, ...b));
+            var sum = 0;
+                for(var i in arguments){
+                    sum += arguments[i];
+                }
+                document.write('Sum is :'+sum+'<br>');
+                document.write(" Max Value is:  "+x+" <br>" );
+                document.write("Min Value is: "+y+" <br>" );
+            
+            }
+        test(11,15,18,16,14);
+
+            let x = Math.max(c);
+            let y = Math.min(c);
+        
+    </script>
+</body>
+</html>
