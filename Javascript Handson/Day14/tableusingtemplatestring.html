@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{ text-align:center
+        }
+        div{
+            display:inline-block;
+            border: 1px solid black
+        }
+    </style>
+</head>
+<body>
+    <h2>Table by using template String</h2>
+    <div id="table">
+    <script type="text/javascript">
+        let users=[
+            {name:"Alex", age: 35 ,address:{state:"KA", city:"BLR"}},
+            {name:"Bruce", age: 45},
+            {name:"Chalres", age: 25,address:{state:"MH", city:"MBI"}},
+            {name:"David", age: 49},
+            {name:"Edward", age: 33,address:{state:"TN", city:"CHN"}},
+        ];
+        document.write(`<table BORDER="2PX">`)
+        document.write(`<tr><th>Name</th> <th>Age</th> <th>City</th> <th>State</th></tr>`)
+        for( i=0; i<users.length; i++)
+        document.write(`<tr><td> ${users[i].name}</td><td> ${users[i].age}</td><td> ${users[i]?.address?.city}</td><td>  ${users[i]?.address?.state}</td></tr>`)
+        document.write(`</table>`)
+    </script>
+    </div>
+</body>
+</html>
