@@ -1,0 +1,414 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydatabase         |
+| mysql              |
+| performance_schema |
+| rigved_db          |
+| sys                |
++--------------------+
+6 rows in set (0.03 sec)
+
+mysql> use rigved_db;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_rigved_db |
++---------------------+
+| employee            |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> create table table1(tno int primary key auto_increment,tname varchar(15));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc table1;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| tno   | int         | NO   | PRI | NULL    | auto_increment |
+| tname | varchar(15) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> select * from table1
+    -> ^c
+    -> select * from table1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '^c
+select * from table1' at line 2
+mysql> select table from table1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table from table1' at line 1
+mysql> select * from table1;
+Empty set (0.00 sec)
+
+mysql> insert into table1(tname) values ('Alex');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into table1(tname) values ('Bruce');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from table1;
++-----+-------+
+| tno | tname |
++-----+-------+
+|   1 | Alex  |
+|   2 | Bruce |
++-----+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table table2(tno int primary key auto_increment , tname varchar(20) auto_increment=500);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=500)' at line 1
+mysql> create table table2(tno int primary key auto_increment , tname varchar(20) auto_increment=500;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=500' at line 1
+mysql> create table table2(tno int primary key auto_increment , tname varchar(20)) auto_increment=500;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc table2;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| tno   | int         | NO   | PRI | NULL    | auto_increment |
+| tname | varchar(20) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> insert into table2(tname) values ('Alex');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into table2(tnamr)values ('Bruce');
+ERROR 1054 (42S22): Unknown column 'tnamr' in 'field list'
+mysql> insert into table2(tname) values ('Bruce');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from table2;
++-----+-------+
+| tno | tname |
++-----+-------+
+| 500 | Alex  |
+| 501 | Bruce |
++-----+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into (tname) values ('David');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(tname) values ('David')' at line 1
+mysql> insert into table2(tname) values ('david');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into(tname) values ('john');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(tname) values ('john')' at line 1
+mysql> insert into table2(tname) values ('john');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from table2;
++-----+-------+
+| tno | tname |
++-----+-------+
+| 500 | Alex  |
+| 501 | Bruce |
+| 502 | david |
+| 503 | john  |
++-----+-------+
+4 rows in set (0.00 sec)
+
+mysql> delete from table2 where tno=501;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> slect * from table2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect * from table2' at line 1
+mysql> select * from table2;
++-----+-------+
+| tno | tname |
++-----+-------+
+| 500 | Alex  |
+| 502 | david |
+| 503 | john  |
++-----+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table emp(tno int primary key auto_increment , tname varchar(10) , dob date , salary double);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| tno    | int         | NO   | PRI | NULL    | auto_increment |
+| tname  | varchar(10) | YES  |     | NULL    |                |
+| dob    | date        | YES  |     | NULL    |                |
+| salary | double      | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> insert into emp(tname,dob,salary) values ('Alex' , 1993-10-25 , 40000);
+ERROR 1292 (22007): Incorrect date value: '1958' for column 'dob' at row 1
+mysql> insert into emp(tname ,dob, salary) values ('Alex' , '1993-10-25' , 40000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(tname,dob,salary) values ('Bruce' , '1991-05-15' , 35000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(tname,dob,salary) values ('Charles' , '1995-07-23' , 65000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(tname , dob , salary) values ('David' , '1992-08-26' , 45000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(tname,dob, salary) values ('John' , '1996-12-08' , 60000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(tname,dob,salary) values ('edward' , '1997-09-05' , 50000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp where salary between 50000 and 60000;
++-----+--------+------------+--------+
+| tno | tname  | dob        | salary |
++-----+--------+------------+--------+
+|   5 | John   | 1996-12-08 |  60000 |
+|   6 | edward | 1997-09-05 |  50000 |
++-----+--------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp where salary > 45000;
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   3 | Charles | 1995-07-23 |  65000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select count(*) emp;
++-----+
+| emp |
++-----+
+|   1 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from emp;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where dob=1997;
+Empty set, 1 warning (0.00 sec)
+
+mysql> select * from emp where year(dob)=1997;
++-----+--------+------------+--------+
+| tno | tname  | dob        | salary |
++-----+--------+------------+--------+
+|   6 | edward | 1997-09-05 |  50000 |
++-----+--------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where year(dob) > 1993;
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   3 | Charles | 1995-07-23 |  65000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select upper(name) from emp;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select upper(tname) from emp;
++--------------+
+| upper(tname) |
++--------------+
+| ALEX         |
+| BRUCE        |
+| CHARLES      |
+| DAVID        |
+| JOHN         |
+| EDWARD       |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> select lower(tname) from emp;
++--------------+
+| lower(tname) |
++--------------+
+| alex         |
+| bruce        |
+| charles      |
+| david        |
+| john         |
+| edward       |
++--------------+
+6 rows in set (0.00 sec)
+
+mysql> select dob from emp;
++------------+
+| dob        |
++------------+
+| 1993-10-25 |
+| 1991-05-15 |
+| 1995-07-23 |
+| 1992-08-26 |
+| 1996-12-08 |
+| 1997-09-05 |
++------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format (dob , %d-%m-%y) from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%d-%m-%y) from emp' at line 1
+mysql> select date_format (dob , '%d-%m-%y') from emp;
++--------------------------------+
+| date_format (dob , '%d-%m-%y') |
++--------------------------------+
+| 25-10-93                       |
+| 15-05-91                       |
+| 23-07-95                       |
+| 26-08-92                       |
+| 08-12-96                       |
+| 05-09-97                       |
++--------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select date_format (dob ,' %d-%m-%Y') from emp;
++--------------------------------+
+| date_format (dob ,' %d-%m-%Y') |
++--------------------------------+
+|  25-10-1993                    |
+|  15-05-1991                    |
+|  23-07-1995                    |
+|  26-08-1992                    |
+|  08-12-1996                    |
+|  05-09-1997                    |
++--------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select upper ('hello world');
++-----------------------+
+| upper ('hello world') |
++-----------------------+
+| HELLO WORLD           |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select lower ('hello World');
++-----------------------+
+| lower ('hello World') |
++-----------------------+
+| hello world           |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select replace ('jack and jue' , 'j' , 'bl');
++---------------------------------------+
+| replace ('jack and jue' , 'j' , 'bl') |
++---------------------------------------+
+| black and blue                        |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select reverse ('Hello');
++-------------------+
+| reverse ('Hello') |
++-------------------+
+| olleH             |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select tname , reverse(tname) from emp;
++---------+----------------+
+| tname   | reverse(tname) |
++---------+----------------+
+| Alex    | xelA           |
+| Bruce   | ecurB          |
+| Charles | selrahC        |
+| David   | divaD          |
+| John    | nhoJ           |
+| edward  | drawde         |
++---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select min(salary) from emp;
++-------------+
+| min(salary) |
++-------------+
+|       35000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from emp;
++-------------+
+| max(salary) |
++-------------+
+|       65000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select current_date;
++--------------+
+| current_date |
++--------------+
+| 2022-03-16   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| tno    | int         | NO   | PRI | NULL    | auto_increment |
+| tname  | varchar(10) | YES  |     | NULL    |                |
+| dob    | date        | YES  |     | NULL    |                |
+| salary | double      | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from emp;
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select current_time;
++--------------+
+| current_time |
++--------------+
+| 12:57:26     |
++--------------+
+1 row in set (0.00 sec)

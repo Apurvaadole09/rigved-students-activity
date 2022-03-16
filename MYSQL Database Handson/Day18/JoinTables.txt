@@ -1,0 +1,128 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydatabase         |
+| mysql              |
+| performance_schema |
+| rigved_db          |
+| sys                |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> use rigved_db;
+Database changed
+mysql> create table student(Roll_no int primary key , Name varchar(10) , Age int);
+ERROR 1050 (42S01): Table 'student' already exists
+mysql> create table students(Roll_no int primary key , Name varchar(10) , Age int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc students;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_no | int         | NO   | PRI | NULL    |       |
+| Name    | varchar(10) | YES  |     | NULL    |       |
+| Age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into students values(1 , 'Alex' , 20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into students values(2 , 'Charles' ,22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into students values(3, ' Bruce' ,21);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into students values(4 ,  'David' ,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from students;
++---------+---------+------+
+| Roll_no | Name    | Age  |
++---------+---------+------+
+|       1 | Alex    |   20 |
+|       2 | Charles |   22 |
+|       3 |  Bruce  |   21 |
+|       4 | David   |   20 |
++---------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table mark(Mid int , Physics int , Maths int , Chemistry int , Student_roll int , foreign key (Student_roll) references students(Roll_no));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from mark;
+Empty set (0.00 sec)
+
+mysql> desc mark;
++--------------+------+------+-----+---------+-------+
+| Field        | Type | Null | Key | Default | Extra |
++--------------+------+------+-----+---------+-------+
+| Mid          | int  | YES  |     | NULL    |       |
+| Physics      | int  | YES  |     | NULL    |       |
+| Maths        | int  | YES  |     | NULL    |       |
+| Chemistry    | int  | YES  |     | NULL    |       |
+| Student_roll | int  | YES  | MUL | NULL    |       |
++--------------+------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into mark values(11, 65, 78, 85, 2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mark values(22, 70 , 80, 90 , 4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  insert into mark values(33, 80, 95, 70, 3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mark values(44, 75, 80 , 90 , 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from mark;
++------+---------+-------+-----------+--------------+
+| Mid  | Physics | Maths | Chemistry | Student_roll |
++------+---------+-------+-----------+--------------+
+|   11 |      65 |    78 |        85 |            2 |
+|   22 |      70 |    80 |        90 |            4 |
+|   33 |      80 |    95 |        70 |            3 |
+|   44 |      75 |    80 |        90 |            1 |
++------+---------+-------+-----------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select Physics,Maths,Chemistry,Physics+Maths+Chemistry AS Total from mark;
++---------+-------+-----------+-------+
+| Physics | Maths | Chemistry | Total |
++---------+-------+-----------+-------+
+|      65 |    78 |        85 |   228 |
+|      70 |    80 |        90 |   240 |
+|      80 |    95 |        70 |   245 |
+|      75 |    80 |        90 |   245 |
++---------+-------+-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select students.Roll_no, students.Name,mark.Physics,mark.Maths,mark.Chemistry,(Physics+Maths+Chemistry) AS Total,((Physics+Maths+Chemistry)/3) AS Average from students INNER JOIN mark on students.Roll_no = mark.Student_roll;
++---------+---------+---------+-------+-----------+-------+---------+
+| Roll_no | Name    | Physics | Maths | Chemistry | Total | Average |
++---------+---------+---------+-------+-----------+-------+---------+
+|       1 | Alex    |      75 |    80 |        90 |   245 | 81.6667 |
+|       2 | Charles |      65 |    78 |        85 |   228 | 76.0000 |
+|       3 |  Bruce  |      80 |    95 |        70 |   245 | 81.6667 |
+|       4 | David   |      70 |    80 |        90 |   240 | 80.0000 |
++---------+---------+---------+-------+-----------+-------+---------+
+4 rows in set (0.01 sec)
