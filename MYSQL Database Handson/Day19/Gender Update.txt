@@ -1,0 +1,112 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydatabase         |
+| mysql              |
+| performance_schema |
+| rigved_db          |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use rigved_db;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_rigved_db |
++---------------------+
+| emp                 |
+| employee            |
+| mark                |
+| person              |
+| students            |
+| table1              |
+| table2              |
+| user_history        |
++---------------------+
+8 rows in set (0.00 sec)
+
+mysql> drop table person;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table person(ID int primary key , Name varchar(10) , Gender varchar(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into person values(01 , 'Alex' , 'Male');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into person values(02 , 'Alia' , 'Female');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from person;
++----+------+--------+
+| ID | Name | Gender |
++----+------+--------+
+|  1 | Alex | Male   |
+|  2 | Alia | Female |
++----+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> delimiter &&
+mysql> create procedure genUpdate(IN id int)
+    -> begin
+    -> declare N_Name varchar(10);
+    -> declare G_Gender varchar(10);
+    -> select Name into N_Name from person where ID = id;
+    -> select Gender into G_Gender from person where ID = id;
+    -> if G_Gender = 'Male'
+    -> then select concat("Mr",N_Name) from person where ID = id;
+    -> else select concat("Miss",N_Name) from person where ID = id;
+    -> end if;
+    -> end &&
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call genUpdate(1) &&
+ERROR 1172 (42000): Result consisted of more than one row
+mysql> create procedure Updategen(IN pid int)
+    -> begin
+    -> declare N_Name varchar(10);
+    -> declare G_Gender varchar(10);
+    -> select Name into N_Name from person where ID = pid;
+    -> select Gender into G_Gender from person where ID = pid;
+    -> if G_Gender = 'Male'
+    -> then select concat("Mr",N_Name) from person where ID = pid;
+    -> else select concat("Miss",N_Name) from person where ID = pid;
+    -> end if;
+    -> end &&
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call Updategen(1) &&
++---------------------+
+| concat("Mr",N_Name) |
++---------------------+
+| MrAlex              |
++---------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call Updategen(2) &&
++-----------------------+
+| concat("Miss",N_Name) |
++-----------------------+
+| MissAlia              |
++-----------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)

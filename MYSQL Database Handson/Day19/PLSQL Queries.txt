@@ -1,0 +1,303 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 19
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> delimiter $
+mysql> select * from employee
+    ->
+    -> $
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
+    -> $
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydatabase         |
+| mysql              |
+| performance_schema |
+| rigved_db          |
+| sys                |
++--------------------+
+6 rows in set (0.05 sec)
+
+mysql> use rigved_db$
+Database changed
+mysql> select * from emp
+    -> $
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp;
+    -> $
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delimiter ;
+mysql> select * from emp;
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp$
+    -> ;
+ERROR 1146 (42S02): Table 'rigved_db.emp$' doesn't exist
+mysql> delimiter $$
+mysql> select * from emp$$
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> create procedure p1()
+    -> select * from emp;
+    -> $$
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> call p1()$$
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create procedure result()
+    -> select Roll_no , Name , Physics , Maths ,Chemistry ,(Physics+Maths+Chemistry) as Total from Students join mark on Roll_no = Student_roll;
+    -> $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call result()$$
++---------+---------+---------+-------+-----------+-------+
+| Roll_no | Name    | Physics | Maths | Chemistry | Total |
++---------+---------+---------+-------+-----------+-------+
+|       1 | Alex    |      75 |    80 |        90 |   245 |
+|       2 | Charles |      65 |    78 |        85 |   228 |
+|       3 |  Bruce  |      80 |    95 |        70 |   245 |
+|       4 | David   |      70 |    80 |        90 |   240 |
++---------+---------+---------+-------+-----------+-------+
+4 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create procedure p3()
+    -> begin
+    -> declare a , b, c int;
+    -> set a =5 ;
+    -> set b = 5 + a;
+    -> set c = a + b ;
+    -> select a, b, c ;
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p3()$$
++------+------+------+
+| a    | b    | c    |
++------+------+------+
+|    5 |   10 |   15 |
++------+------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> set @x = 10 ;
+    -> $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @x $$
++------+
+| @x   |
++------+
+|   10 |
++------+
+1 row in set (0.00 sec)
+
+mysql> create procedure p4()
+    -> begin
+    -> declare a , b int;
+    -> set a = 7 ;
+    -> set b = @x + a ;
+    -> select a , b ;
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p4()$$
++------+------+
+| a    | b    |
++------+------+
+|    7 |   17 |
++------+------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create procedure p5(IN  a varchar(15))
+    -> begin
+    -> select a;
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p5('Hello')$$
++-------+
+| a     |
++-------+
+| Hello |
++-------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create procedure p7(IN a int , IN b int)
+    -> begin
+    -> set c = a + b;
+    -> select c;
+    -> end
+    -> $$
+ERROR 1193 (HY000): Unknown system variable 'c'
+mysql> create procedure p7(IN a int , IN b int)
+    -> begin
+    -> declare c int;
+    -> set c = a + b ;
+    -> select c;
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p7(10 , 15)$$
++------+
+| c    |
++------+
+|   25 |
++------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call p8search(1)$$
+ERROR 1305 (42000): PROCEDURE rigved_db.p8search does not exist
+mysql> create procedure p8search (IN empid int)
+    -> begin
+    -> select * from emp where tno = empid;
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p8search(1)$$
++-----+-------+------------+--------+
+| tno | tname | dob        | salary |
++-----+-------+------------+--------+
+|   1 | Alex  | 1993-10-25 |  40000 |
++-----+-------+------------+--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p8search(4)$$
++-----+-------+------------+--------+
+| tno | tname | dob        | salary |
++-----+-------+------------+--------+
+|   4 | David | 1992-08-26 |  45000 |
++-----+-------+------------+--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp$$
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
++-----+---------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> desc emp$$
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| tno    | int         | NO   | PRI | NULL    | auto_increment |
+| tname  | varchar(10) | YES  |     | NULL    |                |
+| dob    | date        | YES  |     | NULL    |                |
+| salary | double      | YES  |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> create procedure p9store(IN tna varchar(15) , IN d date ,IN s double)
+    -> begin
+    -> insert into emp (tname , dob , salary) values (tna , d , s);
+    -> end
+    -> $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call p9store('Jack' , '1994-11-15' , 52000)$$
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp$$
++-----+---------+------------+--------+
+| tno | tname   | dob        | salary |
++-----+---------+------------+--------+
+|   1 | Alex    | 1993-10-25 |  40000 |
+|   2 | Bruce   | 1991-05-15 |  35000 |
+|   3 | Charles | 1995-07-23 |  65000 |
+|   4 | David   | 1992-08-26 |  45000 |
+|   5 | John    | 1996-12-08 |  60000 |
+|   6 | edward  | 1997-09-05 |  50000 |
+|   7 | Jack    | 1994-11-15 |  52000 |
++-----+---------+------------+--------+
+7 rows in set (0.00 sec)
