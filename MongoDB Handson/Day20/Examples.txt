@@ -1,0 +1,149 @@
+Microsoft Windows [Version 10.0.19043.1586]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\abhay adole>set path=C:\Users\abhay adole\Downloads\mongodb-windows-x86_64-5.0.6\mongodb-win32-x86_64-windows-5.0.6\bin;%path%
+
+C:\Users\abhay adole>mongo
+MongoDB shell version v5.0.6
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("f6010915-3061-477b-9470-c255f2294105") }
+MongoDB server version: 5.0.6
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2022-03-21T14:26:32.368+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2022-03-21T14:26:32.368+05:30: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show databases;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+mydb    0.000GB
+> use mydb;
+switched to db mydb
+> db.createCollection("employee");
+{ "ok" : 1 }
+> db.employee.insert({_id:10,Name:"Alex"});
+WriteResult({ "nInserted" : 1 })
+> db.employee.insert({Name:"Bruce"});
+WriteResult({ "nInserted" : 1 })
+> db.employee.find();
+{ "_id" : 10, "Name" : "Alex" }
+{ "_id" : ObjectId("62384e4a138bb5a6fe8dbd88"), "Name" : "Bruce" }
+> db.createCollection("EMPLOYEE");
+{ "ok" : 1 }
+> db.EMPLOYEE.insert({_id:20 , Name:"Sachin"});
+WriteResult({ "nInserted" : 1 })
+> db.EMPLOYEE.insert({Firstname:"Virat", Lastname:"Kolhi"});
+WriteResult({ "nInserted" : 1 })
+> db.EMPLOYEE.find();
+{ "_id" : 20, "Name" : "Sachin" }
+{ "_id" : ObjectId("62384ef0138bb5a6fe8dbd89"), "Firstname" : "Virat", "Lastname" : "Kolhi" }
+> db.createCollection("user");
+{ "ok" : 1 }
+> db.user.insert({_id:11 ,Name:"Alia", Password:"Alia123"});
+WriteResult({ "nInserted" : 1 })
+> db.user.insert({_id:22 , Name:"John" , Password:"John123"});
+WriteResult({ "nInserted" : 1 })
+> db.user.insert({_id:33 , Name:"Stephen" , Password:"Stephen123"});
+WriteResult({ "nInserted" : 1 })
+> db.user.find();
+{ "_id" : 11, "Name" : "Alia", "Password" : "Alia123" }
+{ "_id" : 22, "Name" : "John", "Password" : "John123" }
+{ "_id" : 33, "Name" : "Stephen", "Password" : "Stephen123" }
+> db.user.find({_id:22});
+{ "_id" : 22, "Name" : "John", "Password" : "John123" }
+> db.user.find({_id:11});
+{ "_id" : 11, "Name" : "Alia", "Password" : "Alia123" }
+> db.user.deleteOne({id:33});
+{ "acknowledged" : true, "deletedCount" : 0 }
+> db.user.find();
+{ "_id" : 11, "Name" : "Alia", "Password" : "Alia123" }
+{ "_id" : 22, "Name" : "John", "Password" : "John123" }
+{ "_id" : 33, "Name" : "Stephen", "Password" : "Stephen123" }
+> db.user.deleteOne({_id:33});
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.user.find();
+{ "_id" : 11, "Name" : "Alia", "Password" : "Alia123" }
+{ "_id" : 22, "Name" : "John", "Password" : "John123" }
+> db.user.remove();
+uncaught exception: Error: remove needs a query :
+DBCollection.prototype._parseRemove@src/mongo/shell/collection.js:364:15
+DBCollection.prototype.remove@src/mongo/shell/collection.js:394:18
+@(shell):1:1
+> db.user.remove({_id:11},{_id:22});
+WriteResult({ "nRemoved" : 1 })
+> db.user.find();
+{ "_id" : 22, "Name" : "John", "Password" : "John123" }
+> db.user.insert({_id:44 , Name:"David" , Password:"David123"});
+WriteResult({ "nInserted" : 1 })
+> db.user.find();
+{ "_id" : 22, "Name" : "John", "Password" : "John123" }
+{ "_id" : 44, "Name" : "David", "Password" : "David123" }
+> db.user.remove([{_id:22},{_id:44}]);
+WriteCommandError({
+        "ok" : 0,
+        "errmsg" : "BSON field 'delete.deletes.q' is the wrong type 'array', expected type 'object'",
+        "code" : 14,
+        "codeName" : "TypeMismatch"
+})
+> db.user.find();
+{ "_id" : 22, "Name" : "John", "Password" : "John123" }
+{ "_id" : 44, "Name" : "David", "Password" : "David123" }
+> db.user.remove({_id:{$in:[22,44]}});
+WriteResult({ "nRemoved" : 2 })
+> db.user.find();
+> db.user.insert({_id:11, Name:"Sachin", Password:"Sachin111"});
+WriteResult({ "nInserted" : 1 })
+> db.user.insert({_id:12 , Name:"Virat" , Password:"Virat111"});
+WriteResult({ "nInserted" : 1 })
+> db.user.insert({_id:13 , Name:"Rohit" , Password:"Rohit111"});
+WriteResult({ "nInserted" : 1 })
+> db.user.find();
+{ "_id" : 11, "Name" : "Sachin", "Password" : "Sachin111" }
+{ "_id" : 12, "Name" : "Virat", "Password" : "Virat111" }
+{ "_id" : 13, "Name" : "Rohit", "Password" : "Rohit111" }
+> db.changeuserPassword("11","Sachin@123");
+uncaught exception: TypeError: db.changeuserPassword is not a function :
+@(shell):1:1
+> db.changeUserPassword("11","Sachin@123");
+uncaught exception: Error: Updating user failed: User 11@mydb not found :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+DB.prototype.updateUser@src/mongo/shell/db.js:1417:11
+DB.prototype.changeUserPassword@src/mongo/shell/db.js:1421:5
+@(shell):1:1
+> db.changeUserPassword("_id:11","Sachin@123");
+uncaught exception: Error: Updating user failed: User _id:11@mydb not found :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+DB.prototype.updateUser@src/mongo/shell/db.js:1417:11
+DB.prototype.changeUserPassword@src/mongo/shell/db.js:1421:5
+@(shell):1:1
+> db.updateUser("_id:11" ,{Password:"Sachin@123"});
+uncaught exception: Error: Updating user failed: BSON field 'updateUser.Password' is an unknown field. :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+DB.prototype.updateUser@src/mongo/shell/db.js:1417:11
+@(shell):1:1
+> db.user.update({_id:11},{$set: {Password : "Sachin@123"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.user.find();
+{ "_id" : 11, "Name" : "Sachin", "Password" : "Sachin@123" }
+{ "_id" : 12, "Name" : "Virat", "Password" : "Virat111" }
+{ "_id" : 13, "Name" : "Rohit", "Password" : "Rohit111" }
+>

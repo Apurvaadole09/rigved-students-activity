@@ -1,0 +1,90 @@
+Microsoft Windows [Version 10.0.19043.1586]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\abhay adole>set path=C:\Users\abhay adole\Downloads\mongodb-windows-x86_64-5.0.6\mongodb-win32-x86_64-windows-5.0.6\bin;%path%
+
+C:\Users\abhay adole>mongo
+MongoDB shell version v5.0.6
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("f1d027d9-c45e-44ae-aede-357b22bfa9c1") }
+MongoDB server version: 5.0.6
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+        https://docs.mongodb.com/
+Questions? Try the MongoDB Developer Community Forums
+        https://community.mongodb.com
+---
+The server generated these startup warnings when booting:
+        2022-03-21T14:26:32.368+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2022-03-21T14:26:32.368+05:30: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show databases;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> use mydb;
+switched to db mydb
+> db.createCollection("mycollection");
+{ "ok" : 1 }
+> show collections;
+mycollection
+> db.mycollection.insert({_id:01 , Name:"Alex"});
+WriteResult({ "nInserted" : 1 })
+> db.mycollection.insert({Name:"Bruce"});
+WriteResult({ "nInserted" : 1 })
+> db.mycollection.insert({Firstname:"Alex" , Lastname:"John"});
+WriteResult({ "nInserted" : 1 })
+> db.mycollection.find();
+{ "_id" : 1, "Name" : "Alex" }
+{ "_id" : ObjectId("62384a1c05381ec671471354"), "Name" : "Bruce" }
+{ "_id" : ObjectId("62384a5205381ec671471355"), "Firstname" : "Alex", "Lastname" : "John" }
+> db.mycollection.insertOne({_id:02 , Name:"Sachin"});
+{ "acknowledged" : true, "insertedId" : 2 }
+> db.mycollection.insertOne({Name:"Vijay"});
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("62384b2f05381ec671471356")
+}
+> db.mycollection.find();
+{ "_id" : 1, "Name" : "Alex" }
+{ "_id" : ObjectId("62384a1c05381ec671471354"), "Name" : "Bruce" }
+{ "_id" : ObjectId("62384a5205381ec671471355"), "Firstname" : "Alex", "Lastname" : "John" }
+{ "_id" : 2, "Name" : "Sachin" }
+{ "_id" : ObjectId("62384b2f05381ec671471356"), "Name" : "Vijay" }
+> db.mycollection.insertMany([{_id:11 , Name:"David"},{_id:12 , Name:"Edward"},{Firstname:"Virat", Lastname:"Kolhi"}]);
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                11,
+                12,
+                ObjectId("62384c6f05381ec671471357")
+        ]
+}
+> db.mycollection.find();
+{ "_id" : 1, "Name" : "Alex" }
+{ "_id" : ObjectId("62384a1c05381ec671471354"), "Name" : "Bruce" }
+{ "_id" : ObjectId("62384a5205381ec671471355"), "Firstname" : "Alex", "Lastname" : "John" }
+{ "_id" : 2, "Name" : "Sachin" }
+{ "_id" : ObjectId("62384b2f05381ec671471356"), "Name" : "Vijay" }
+{ "_id" : 11, "Name" : "David" }
+{ "_id" : 12, "Name" : "Edward" }
+{ "_id" : ObjectId("62384c6f05381ec671471357"), "Firstname" : "Virat", "Lastname" : "Kolhi" }
