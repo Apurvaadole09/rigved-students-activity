@@ -1,0 +1,47 @@
+> show databases;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+mydb    0.000GB
+> use mydb;
+switched to db mydb
+> db.University.drop();
+true
+> db.createCollection("University");
+{ "ok" : 1 }
+>  db.University.insert({_id: "studentid", sequence_value:0});
+WriteResult({ "nInserted" : 1 })
+> function getValue(sequenceValue){
+... var seq = db.University.findAndModify({
+... query: {_id: sequenceValue},
+... update: {$inc: {sequence_value: 1}},
+... new: true
+... });
+... return "MUMBAI" + sequence.sequence_value;
+... }
+> db.University.insert({"_id": getValue("studentid"), "name": "Alex","Age":"35"});
+uncaught exception: ReferenceError: sequence is not defined :
+getValue@(shell):7:1
+@(shell):1:30
+> function getValue(sequenceValue){
+... var seq = db.University.findAndModify({
+... query: {_id: sequenceValue},
+... update: {$inc: {sequence_value: 1}},
+... new: true
+... });
+... return "MUMBAI" + seq.sequence_value;
+... }
+> db.University.insert({"_id": getValue("studentid"), "name": "Alex","Age":"35"});
+WriteResult({ "nInserted" : 1 })
+> db.University.insert({"_id": getValue("studentid"), "name": "Charles","Age":"37"});
+WriteResult({ "nInserted" : 1 })
+> db.University.insert({"_id": getValue("studentid"), "name": "Bruce","Age":"34"});
+WriteResult({ "nInserted" : 1 })
+> db.University.insert({"_id": getValue("studentid"), "name": "David","Age":"38"});
+WriteResult({ "nInserted" : 1 })
+> db.University.find();
+{ "_id" : "studentid", "sequence_value" : 5 }
+{ "_id" : "MUMBAI2", "name" : "Alex", "Age" : "35" }
+{ "_id" : "MUMBAI3", "name" : "Charles", "Age" : "37" }
+{ "_id" : "MUMBAI4", "name" : "Bruce", "Age" : "34" }
+{ "_id" : "MUMBAI5", "name" : "David", "Age" : "38" }

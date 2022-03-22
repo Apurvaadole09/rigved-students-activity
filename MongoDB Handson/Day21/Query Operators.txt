@@ -1,0 +1,174 @@
+Microsoft Windows [Version 10.0.19043.1586]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\abhay adole>set path=C:\Users\abhay adole\Downloads\mongodb-windows-x86_64-5.0.6\mongodb-win32-x86_64-windows-5.0.6\bin;%path%
+
+C:\Users\abhay adole>mongo
+MongoDB shell version v5.0.6
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("0ac5eca2-21c2-4b05-814e-fc9b99c46a3d") }
+MongoDB server version: 5.0.6
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2022-03-22T14:32:30.847+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+        2022-03-22T14:32:30.847+05:30: This server is bound to localhost. Remote systems will be unable to connect to this server. Start the server with --bind_ip <address> to specify which IP addresses it should serve responses from, or with --bind_ip_all to bind to all interfaces. If this behavior is desired, start the server with --bind_ip 127.0.0.1 to disable this warning
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show databases;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+mydb    0.000GB
+> use mydb;
+switched to db mydb
+> show collections;
+EMPLOYEE
+employee
+mycollection
+user
+> function demo() {
+... return 'Hello World';
+... }
+> var x=demo();
+> x;
+Hello World
+> db.employee.find();
+{ "_id" : 10, "Name" : "Alex" }
+{ "_id" : ObjectId("62384e4a138bb5a6fe8dbd88"), "Name" : "Bruce" }
+> db.user.find();
+{ "_id" : 11, "Name" : "Sachin", "Password" : "Sachin@123" }
+{ "_id" : 12, "Name" : "Virat", "Password" : "Virat111" }
+{ "_id" : 13, "Name" : "Rohit", "Password" : "Rohit111" }
+> db.user.find().sort({name:-1});
+{ "_id" : 11, "Name" : "Sachin", "Password" : "Sachin@123" }
+{ "_id" : 12, "Name" : "Virat", "Password" : "Virat111" }
+{ "_id" : 13, "Name" : "Rohit", "Password" : "Rohit111" }
+> db.user.find().sort({name:1});
+{ "_id" : 11, "Name" : "Sachin", "Password" : "Sachin@123" }
+{ "_id" : 12, "Name" : "Virat", "Password" : "Virat111" }
+{ "_id" : 13, "Name" : "Rohit", "Password" : "Rohit111" }
+> db.user.find().sort({Name:-1});
+{ "_id" : 12, "Name" : "Virat", "Password" : "Virat111" }
+{ "_id" : 11, "Name" : "Sachin", "Password" : "Sachin@123" }
+{ "_id" : 13, "Name" : "Rohit", "Password" : "Rohit111" }
+> dm.user.find();
+uncaught exception: ReferenceError: dm is not defined :
+@(shell):1:1
+> db.user.find();
+{ "_id" : 11, "Name" : "Sachin", "Password" : "Sachin@123" }
+{ "_id" : 12, "Name" : "Virat", "Password" : "Virat111" }
+{ "_id" : 13, "Name" : "Rohit", "Password" : "Rohit111" }
+> db.createCollection("User");
+{ "ok" : 1 }
+> show collections;
+EMPLOYEE
+User
+employee
+mycollection
+user
+> db.User.insert([{_id:10, Name:"Alex" , Age:36},
+... {_id:20, Name:"Bruce" , Age:36},
+... {_id:30, Name:"David" , Age:38}
+... {_id:40, Name:"Alia" , Age:38},
+... {_id:50, Name:"Sachin" , Age:38},
+... {_id:60, Name:"Rohit" , Age:39},
+... {_id:70, Name:"Virat" , Age:39},
+... {_id:80, Name:"Edward" , Age:39}])
+uncaught exception: SyntaxError: missing ] after element list :
+@(shell):4:0
+> db.User.insert([{_id:10, Name:"Alex" , Age:36},
+... {_id:20, Name:"Bruce" , Age:36},
+... {_id:30, Name:"David" , Age:38},
+... {_id:40, Name:"Alia" , Age:38},
+... {_id:50, Name:"Sachin" , Age:38},
+... {_id:60, Name:"Rohit" , Age:39},
+... {_id:70, Name:"Virat" , Age:39},
+... {_id:80, Name:"Edward" , Age:39}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 8,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.User.find();
+{ "_id" : 10, "Name" : "Alex", "Age" : 36 }
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+{ "_id" : 30, "Name" : "David", "Age" : 38 }
+{ "_id" : 40, "Name" : "Alia", "Age" : 38 }
+{ "_id" : 50, "Name" : "Sachin", "Age" : 38 }
+{ "_id" : 60, "Name" : "Rohit", "Age" : 39 }
+{ "_id" : 70, "Name" : "Virat", "Age" : 39 }
+{ "_id" : 80, "Name" : "Edward", "Age" : 39 }
+> db.User.find({$or:[{Age:{$gt:38}},{"Name":"Bruce"}]});
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+{ "_id" : 60, "Name" : "Rohit", "Age" : 39 }
+{ "_id" : 70, "Name" : "Virat", "Age" : 39 }
+{ "_id" : 80, "Name" : "Edward", "Age" : 39 }
+> db.User.find({$or:[{Age:36},{"Name":"Bruce"}]});
+{ "_id" : 10, "Name" : "Alex", "Age" : 36 }
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+> db.User.find({$and:[{Name:"Alia", Age:"38"}]});
+> db.User.find({$and:[{Name:"Alia"},{Age:"38"}]});
+> db.User.find({$and:[{Name:"Alia"},{Age:38}]});
+{ "_id" : 40, "Name" : "Alia", "Age" : 38 }
+> db.User.find({Age:{$in:[36,39]}});
+{ "_id" : 10, "Name" : "Alex", "Age" : 36 }
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+{ "_id" : 60, "Name" : "Rohit", "Age" : 39 }
+{ "_id" : 70, "Name" : "Virat", "Age" : 39 }
+{ "_id" : 80, "Name" : "Edward", "Age" : 39 }
+> db.User.find({"Age":{$lt:39}});
+{ "_id" : 10, "Name" : "Alex", "Age" : 36 }
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+{ "_id" : 30, "Name" : "David", "Age" : 38 }
+{ "_id" : 40, "Name" : "Alia", "Age" : 38 }
+{ "_id" : 50, "Name" : "Sachin", "Age" : 38 }
+> db.User.find({"Age":{$lte:38}});
+{ "_id" : 10, "Name" : "Alex", "Age" : 36 }
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+{ "_id" : 30, "Name" : "David", "Age" : 38 }
+{ "_id" : 40, "Name" : "Alia", "Age" : 38 }
+{ "_id" : 50, "Name" : "Sachin", "Age" : 38 }
+> db.User.find({"Age":{$gte:38}});
+{ "_id" : 30, "Name" : "David", "Age" : 38 }
+{ "_id" : 40, "Name" : "Alia", "Age" : 38 }
+{ "_id" : 50, "Name" : "Sachin", "Age" : 38 }
+{ "_id" : 60, "Name" : "Rohit", "Age" : 39 }
+{ "_id" : 70, "Name" : "Virat", "Age" : 39 }
+{ "_id" : 80, "Name" : "Edward", "Age" : 39 }
+> db.User.find({"Age":{$nin:[38,39]}});
+{ "_id" : 10, "Name" : "Alex", "Age" : 36 }
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+> db.User.find({"Age":{$not:{$gte:38}}});
+{ "_id" : 10, "Name" : "Alex", "Age" : 36 }
+{ "_id" : 20, "Name" : "Bruce", "Age" : 36 }
+> db.User.find({"Age":{$exists:true,$gte:38}});
+{ "_id" : 30, "Name" : "David", "Age" : 38 }
+{ "_id" : 40, "Name" : "Alia", "Age" : 38 }
+{ "_id" : 50, "Name" : "Sachin", "Age" : 38 }
+{ "_id" : 60, "Name" : "Rohit", "Age" : 39 }
+{ "_id" : 70, "Name" : "Virat", "Age" : 39 }
+{ "_id" : 80, "Name" : "Edward", "Age" : 39 }
+> db.User.find({"Age":{$exists:false,$gte:38}});
+>
