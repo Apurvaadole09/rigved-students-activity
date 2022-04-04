@@ -1,0 +1,15 @@
+<table border="1" align="center">
+    <tr>
+        <td>Name</td>
+        <td>Gender</td>
+        <td>State</td>
+        <td>City</td>
+    </tr>
+    <tr *ngFor="let obj of table">
+     <td>{{obj.name | saluation:obj.gender}}</td>
+     <td>{{obj.gender}}</td>
+     <td>{{obj.address.state}}</td>
+     <td>{{obj.address.city}}</td>
+    </tr>
+
+</table>
