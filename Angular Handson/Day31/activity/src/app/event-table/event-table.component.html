@@ -1,0 +1,50 @@
+
+<div class="card">
+    <form [formGroup]="userForm">
+        <div class="mt-5">
+            <div class="form-row">
+                <div class="cal-md-12">
+                    <div class="form-group">
+                        <label>FirstName</label>
+                    </div>
+                    <div class="from-group">
+                        <div class="col">
+                            <input type="text" formControlName="FirstName" class="form-control" placeholder="FirstName">
+                        </div>
+                    </div>
+                </div>
+                <div class="cal-md-12">
+                    <div class="form-group">
+                        <label>LastName</label>
+                    </div>
+                    <div class="from-group">
+                        <div class="col">
+                            <input type="text" formControlName="LastName" class="form-control" placeholder="LastName">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row mt-4">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary" (click)="addItem()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="cal-md-8">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor=" let item of listData">
+                    <td><span>{{item.FirstName|titlecase}}</span></td>
+                    <td><span>{{item.LastName|titlecase}}</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
