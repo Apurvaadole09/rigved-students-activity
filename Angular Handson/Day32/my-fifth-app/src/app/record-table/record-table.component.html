@@ -1,0 +1,18 @@
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Roll No.</th>
+            <th>Name</th>
+            <th>Marks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let obj of array" >
+            <td>{{obj.rollno}}</td>
+            <td>{{obj.name}}</td>
+            <td *ngIf="obj.marks >=40; else elseBlock"><p [style]="{'color':'green'}">{{obj.marks}}</p></td>
+            <ng-template #elseBlock><p [style]="{'color':'red'}">{{obj.marks}}</p></ng-template>
+           </tr>
+    </tbody>
+</table>
+ 
