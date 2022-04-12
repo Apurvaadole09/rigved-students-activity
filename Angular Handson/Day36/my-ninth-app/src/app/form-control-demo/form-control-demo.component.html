@@ -1,0 +1,23 @@
+<div>
+    <form (ngSubmit) = "handleSubmit()">
+        <div>
+            Username:
+            <input type="text" [formControl] = "username">
+            <span [hidden] ="username.invalid || username.pristine" class="text-danger">Username is required</span>
+        </div>
+        <div>
+            Password:
+            <input type="password" [formControl] = "password">
+            <span [hidden] = "password.invalid || password.pristine" class="text-danger">Password must be between 3 to 10 characters</span>
+        </div>
+        <div>
+            <input type="submit" value="submit" [disabled]="username.invalid || password.invalid">
+        </div>
+    </form>
+    <div>
+        Usename value: {{username.value}} , Valid : {{username.valid}} , Pristine:{{username.pristine}}
+    </div>
+    <div>
+        Password value:{{password.value}} , Valid:{{password.valid}} , Pristine:{{password.pristine}}
+    </div>
+</div>

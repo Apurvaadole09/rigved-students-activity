@@ -1,0 +1,50 @@
+<div>
+    <form [formGroup] = "profile" (ngSubmit) = "handleSubmit()">
+        
+          <label class="form-group row">
+              Firstname:
+              <input type="text" formControlName="firstname" class="input-group-text" autocomplete="off">
+              <span class="text-danger" [hidden] = "profile.controls['firstname'].valid || profile.controls['firstname'].pristine">
+                  Firstname must be more than 3 characters</span>
+          </label>
+          <br />
+          <label class="form-group row">
+            Lastname:
+            <input type="text" formControlName="lastname" class="input-group-text" autocomplete="off">
+            <span class="text-danger" [hidden] = "profile.controls['lastname'].valid || profile.controls['lastname'].pristine">
+                Lastname must be more than 3 characters</span>
+        </label>
+      
+         <br />
+        
+       
+         <div formGroupName = "address" >
+        
+            <h3>Address</h3>
+            <label class="form-group row" >
+                State:
+                <input id = "state" type="text" formControlName="state" class="input-group-text" autocomplete="off">
+                <ng-container  *ngIf="!profile.get('address.state').valid && profile.get('address.state').touched">
+                    <span class="text-danger" >This is required</span>
+                  </ng-container>
+            </label>
+            <br />
+            <label class="form-group row">
+                City:
+                <input id= "city" type="text" formControlName="city" class="input-group-text" autocomplete="off">
+                <ng-container  *ngIf="!profile.get('address.city').valid && profile.get('address.city').touched">
+                    <span class="text-danger">This is required</span>
+                  </ng-container>
+            </label>
+            <br />
+            <label class="form-group row">
+                Pin:
+                <input id="pin" type="text" formControlName="pin" class="input-group-text" autocomplete="off">
+                <ng-container class="text-danger" *ngIf="!profile.get('address.pin').valid && profile.get('address.pin').touched">
+                    <span class="text-danger">This is required</span>
+                  </ng-container>
+            </label>
+        </div>   
+    
+    </form>
+</div>
