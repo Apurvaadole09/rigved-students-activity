@@ -1,0 +1,174 @@
+<div>
+    <h3>
+        Update User
+    </h3>
+
+</div>
+<form [formGroup] = "userForm" (ngSubmit) = "updateForm()" >
+    <label class="form-group row">
+        User Id:
+        <input type="number" formControlName="userId" class="input-group-text" autocomplete="off">
+        <span class="text-danger" [hidden] = "userForm.controls['userId'].valid || userForm.controls['userId'].pristine">
+            This is required</span>
+    </label>
+    <label class="form-group row">
+        Name:
+        <input type="text" formControlName="name" class="input-group-text" autocomplete="off">
+        <span class="text-danger" [hidden] = "userForm.controls['name'].valid || userForm.controls['name'].pristine">
+            Name must be more than 3 characters</span>
+    </label>
+<br />
+    <label class="form-group row">
+      Gender:
+      <input type="radio" name="gn" value="male" formControlName="gender" class="input-group-text" autocomplete="off" required minlength="1">Male
+      <input type="radio" name="gn" value="female" formControlName="gender" class="input-group-text" autocomplete="off" required minlength="1">Female
+      <span class="text-danger" [hidden] = "userForm.controls['gender'].valid || userForm.controls['gender'].pristine">
+          Gender must be selected</span>
+  </label>
+ <br />
+   <label class="form-group row">
+    Phone No.:
+    <input type="number" formControlName="phoneNo" class="input-group-text" autocomplete="off">
+    <span class="text-danger" [hidden] = "userForm.controls['phoneNo'].valid || userForm.controls['phoneNo'].pristine">
+    This is required</span>
+</label>
+<br />
+ <label class="form-group row">
+ Email Id:
+ <input type="string" formControlName="emailid" class="input-group-text" autocomplete="off">
+ <span class="text-danger" [hidden] = "userForm.controls['emailid'].valid || userForm.controls['emailid'].pristine">
+     This is required</span>
+</label>
+<br />
+ 
+   <div formGroupName = "address" >
+  
+      <h3>Address</h3>
+      <label class="form-group row" >
+          State:
+          <input id = "state" type="text" formControlName="state" class="input-group-text" autocomplete="off">
+         
+              <span class="text-danger" [hidden] = "userForm.controls['address'].get('state')?.valid || userForm.controls['address'].get('state')?.pristine">
+                  This is required</span>
+           
+      </label>
+      <br />
+      <label class="form-group row">
+          City:
+          <input id= "city" type="text" formControlName="city" class="input-group-text" autocomplete="off">
+          
+              <span class="text-danger" [hidden] = "userForm.controls['address'].get('city')?.valid || userForm.controls['address'].get('city')?.pristine">
+                  This is required</span>
+            
+      </label>
+      <br />
+      <label class="form-group row">
+          Pin:
+          <input id="pin" type="text" formControlName="pin" class="input-group-text" autocomplete="off">
+          
+              <span class="text-danger" [hidden] = "userForm.controls['address'].get('pin')?.valid || userForm.controls['address'].get('pin')?.pristine">
+                  This is required</span>
+            
+      </label>
+  </div> 
+   
+  <div class="text-center my-2">
+    <button type="submit" class="btn btn-secondary" [disabled]="userForm.invalid">Update</button>
+</div>
+</form>
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Update User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           
+                        <form [formGroup] = "userForm" (ngSubmit) = "updateForm()">
+                            <label class="form-group row">
+                                User Id:
+                                <input type="number" formControlName="userId" class="input-group-text" autocomplete="off">
+                                <span class="text-danger" [hidden] = "userForm.controls['userId'].valid || userForm.controls['userId'].pristine">
+                                    This is required</span>
+                            </label>
+                            <label class="form-group row">
+                                Name:
+                                <input type="text" formControlName="name" class="input-group-text" autocomplete="off">
+                                <span class="text-danger" [hidden] = "userForm.controls['name'].valid || userForm.controls['name'].pristine">
+                                    Name must be more than 3 characters</span>
+                            </label>
+                        <br />
+                            <label class="form-group row">
+                              Gender:
+                              <input type="radio" name="gn" value="male" formControlName="gender" class="input-group-text" autocomplete="off" required minlength="1">Male
+                              <input type="radio" name="gn" value="female" formControlName="gender" class="input-group-text" autocomplete="off" required minlength="1">Female
+                              <span class="text-danger" [hidden] = "userForm.controls['gender'].valid || userForm.controls['gender'].pristine">
+                                  Gender must be selected</span>
+                          </label>
+                         <br />
+                           <label class="form-group row">
+                            Phone No.:
+                            <input type="number" formControlName="phoneNo" class="input-group-text" autocomplete="off">
+                            <span class="text-danger" [hidden] = "userForm.controls['phoneNo'].valid || userForm.controls['phoneNo'].pristine">
+                            This is required</span>
+                        </label>
+                        <br />
+                         <label class="form-group row">
+                         Email Id:
+                         <input type="string" formControlName="emailid" class="input-group-text" autocomplete="off">
+                         <span class="text-danger" [hidden] = "userForm.controls['emailid'].valid || userForm.controls['emailid'].pristine">
+                             This is required</span>
+                        </label>
+                        <br />
+                         
+                           <div formGroupName = "address" >
+                          
+                              <h3>Address</h3>
+                              <label class="form-group row" >
+                                  State:
+                                  <input id = "state" type="text" formControlName="state" class="input-group-text" autocomplete="off">
+                                 
+                                      <span class="text-danger" [hidden] = "userForm.controls['address'].get('state')?.valid || userForm.controls['address'].get('state')?.pristine">
+                                          This is required</span>
+                                   
+                              </label>
+                              <br />
+                              <label class="form-group row">
+                                  City:
+                                  <input id= "city" type="text" formControlName="city" class="input-group-text" autocomplete="off">
+                                  
+                                      <span class="text-danger" [hidden] = "userForm.controls['address'].get('city')?.valid || userForm.controls['address'].get('city')?.pristine">
+                                          This is required</span>
+                                    
+                              </label>
+                              <br />
+                              <label class="form-group row">
+                                  Pin:
+                                  <input id="pin" type="text" formControlName="pin" class="input-group-text" autocomplete="off">
+                                  
+                                      <span class="text-danger" [hidden] = "userForm.controls['address'].get('pin')?.valid || userForm.controls['address'].get('pin')?.pristine">
+                                          This is required</span>
+                                    
+                              </label>
+                          </div> 
+                           
+                          <div class="text-center my-2">
+                            <button type="submit" class="btn btn-danger" [disabled]="userForm.invalid">Update</button>
+                        </div>
+                        </form>
+        </div>
+        </div>
+        </div>
+</div>
+      
+        
+     
+
+
+    
+  
+      
+
