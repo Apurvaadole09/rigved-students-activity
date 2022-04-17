@@ -1,0 +1,24 @@
+<div>
+    <h2>Register Component</h2>
+    <div class="row">
+        <div class="col-5">
+         <form formGroup="profileForm" (ngsubmit)="handleRegister()">
+             <div>
+                 Name:<input type="text" formControlName="name" class="form-control">
+             </div>
+             <div>
+                Password:<input type="text" formControlName="password" class="form-control">
+             </div>
+             <div>
+                Phone No.:<input type="number" formControlName="phone" class="form-control">
+             </div>
+             <div>
+                 <input type="submit" value="Register" class="btn btn-primary">
+             </div>
+         </form>
+         <div>
+             <a router link="/login">Login</a>
+         </div>
+        </div>
+    </div>
+</div>

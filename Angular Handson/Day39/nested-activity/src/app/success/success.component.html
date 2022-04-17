@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div>
+      <h2 class="alert alert-primary text-center"> Login Success </h2>
+    </div>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a routerLink = "dashboard" class="nav-link active" href="#">DashBoard</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink = "list" class="nav-link" href="#">List</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink = "/login"  class="nav-link" href="#">Login</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink = ""  class="nav-link" href="#">Home</a>
+        </li>
+      </ul>
+    
+    
+       
+        
+
+    <div class="card" style="width: 18rem;">
+      <h2>Login SuccessFull !!!</h2>  
+      <div class="card-body">
+          <h5 class="card-title" *ngIf = "username">Hello, {{username}}</h5>
+        </div>
+      </div>
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
+    
